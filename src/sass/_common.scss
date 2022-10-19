@@ -1,1 +1,10 @@
 @import '~node_modules/modern-normalize/modern-normalize.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 20px;
+  /* background-repeat: no-repeat; */
+}
