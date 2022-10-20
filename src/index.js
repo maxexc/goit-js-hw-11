@@ -1,5 +1,5 @@
 import pictureCard from './templates/cards.hbs';
 
-const test = document.querySelector('div');
+const gallery = document.querySelector('.js-gallery-hbs');
 
-test.insertAdjacentHTML('beforeend', pictureCard());
+gallery.insertAdjacentHTML('beforeend', pictureCard());
