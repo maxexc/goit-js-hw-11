@@ -11,7 +11,7 @@ searchForm.addEventListener('submit', onSearchForm);
 function onSearchForm(event) {
   event.preventDefault();
   window.scrollTo({ top: 0 });
-  page = 1;
+  // page = 1;
   query = event.currentTarget.searchQuery.value.trim();
   console.log(query);
   gallery.innerHTML = '';
