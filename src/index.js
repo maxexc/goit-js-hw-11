@@ -7,6 +7,7 @@ const searchForm = document.querySelector('#search-form');
 const searchBtn = document.querySelector('form');
 
 searchForm.addEventListener('submit', onSearchForm);
+let query;
 
 function onSearchForm(event) {
   event.preventDefault();
