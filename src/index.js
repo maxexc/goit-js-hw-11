@@ -31,9 +31,9 @@ function onSearchForm(event) {
       } else {
         gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
 
-        if (data.totalHits > perPage) {
-          loadMore.classList.remove('is-hidden');
-        }
+        // if (data.totalHits > perPage) {
+        //   loadMore.classList.remove('is-hidden');
+        // }
       }
     })
     .catch(error => console.log(error))
