@@ -21,7 +21,7 @@ function onSearchForm(event) {
     return;
   }
 
-  fetchImg(query, page)
+  fetchImg(query)
     .then(({ data }) => {
       console.log(data);
       console.log(data.totalHits);
