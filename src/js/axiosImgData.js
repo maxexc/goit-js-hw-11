@@ -3,7 +3,7 @@ import Notiflix from 'notiflix';
 export { axiosImg };
 
 Notiflix.Notify.init({
-  // position: 'left-top',
+  position: 'left-top',
   cssAnimationStyle: 'zoom',
   fontSize: '20px',
   // showOnlyTheLastOne: true,

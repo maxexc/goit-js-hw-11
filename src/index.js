@@ -46,4 +46,4 @@ function onSearchForm(event) {
 }
 
 // console.log(query);
-// searchForm.insertAdjacentHTML('beforeend', dancingGif());
+searchForm.insertAdjacentHTML('beforeend', dancingGif());
