@@ -46,7 +46,6 @@ async function axiosImg(query, pageNumber) {
           "We're sorry, but you've reached the end of search results."
         );
       }
-      pageNumber += 1;
       totalPage = Math.ceil(response.data.totalHits / 40);
       console.log('totalPage:', totalPage);
       new Error(response.status);
