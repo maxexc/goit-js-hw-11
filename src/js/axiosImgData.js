@@ -41,14 +41,6 @@ async function axiosImg(query, pageNumber) {
           `Hooray! We found ${response.data.totalHits} images.`
         );
       }
-      if (totalPage <= pageNumber) {
-        Notiflix.Notify.warning(
-          "We're sorry, but you've reached the end of search results."
-        );
-      }
-      totalPage = Math.ceil(response.data.totalHits / 40);
-      console.log('totalPage:', totalPage);
-      new Error(response.status);
       return await response.data;
     })
     .catch(error => {

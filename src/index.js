@@ -3,6 +3,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { axiosImg } from './js/axiosImgData.js';
 import dancingGif from './templates/dancingGif.hbs';
+import Notiflix from 'notiflix';
 
 console.log(axiosImg());
 
@@ -36,6 +37,7 @@ function onSearchForm(event) {
   // console.log(query);
   gallery.innerHTML = '';
   observer.unobserve(guard);
+  pageNumber = 1;
 
   if (query === '') {
     // emptySearch();
@@ -44,7 +46,9 @@ function onSearchForm(event) {
 
   axiosImg(query, pageNumber)
     .then(data => {
+      totalPage = Math.ceil(data.totalHits / data.hits.length);
       console.log(data);
+      console.log('totalPage:', totalPage);
       // console.log(data.totalHits);
       // console.log(data.hits);
       if (data.totalHits === 0) {
@@ -52,10 +56,12 @@ function onSearchForm(event) {
       } else {
         gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
         observer.observe(guard);
-
-        // if (data.totalHits > perPage) {
-        //   loadMore.classList.remove('is-hidden');
-        // }
+      }
+      if (pageNumber === totalPage) {
+        Notiflix.Notify.warning(
+          "We're sorry, but you've reached the end of search results."
+        );
+        observer.unobserve(guard);
       }
       gallerySimpleLightbox.refresh();
     })
@@ -71,25 +77,24 @@ function onLoad(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       console.log('hello');
-      axiosImg(query, pageNumber)
-        .then(data => {
-          pageNumber += 1;
-          console.log('pageNumber:', pageNumber);
-          if (pageNumber === totalPage) {
-            console.log(pageNumber, totalPage);
+      axiosImg(query, pageNumber).then(data => {
+        pageNumber += 1;
+        totalPage = Math.ceil(data.totalHits / data.hits.length);
+        console.log('pageNumber:', pageNumber);
+        if (pageNumber === totalPage) {
+          console.log(pageNumber, totalPage);
+          gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
 
-            observer.unobserve(guard);
-            noImagesFound();
-          } else {
-            gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
-            observer.observe(guard);
-            gallerySimpleLightbox.refresh();
-          }
-        })
-        .catch(error => console.log(error))
-        .finally(() => {
-          searchForm.reset();
-        });
+          Notiflix.Notify.warning(
+            "We're sorry, but you've reached the end of search results."
+          );
+          observer.unobserve(guard);
+        } else {
+          gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
+          observer.observe(guard);
+          gallerySimpleLightbox.refresh();
+        }
+      });
     }
   });
 }
