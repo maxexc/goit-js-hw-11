@@ -1,0 +1,2 @@
+var e;e=document.querySelector(".button-back-to-menu"),window.addEventListener("scroll",(function(){var t=window.pageYOffset,n=document.documentElement.clientHeight;t>n&&e.classList.add("button-back-show"),t<n&&e.classList.remove("button-back-show")})),e.addEventListener("click",(function e(){var t=window.pageYOffset/40;window.pageYOffset>0&&(window.scrollBy(0,-t),setTimeout(e,0))}));
+//# sourceMappingURL=index.7b61014b.js.map
