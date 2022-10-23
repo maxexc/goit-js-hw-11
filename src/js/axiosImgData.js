@@ -11,10 +11,8 @@ Notiflix.Notify.init({
 
 const API_URL = 'https://pixabay.com/api/';
 const KEY = '30747162-c0f899af5e8792e55f79454a6';
-let totalPage;
 
 async function axiosImg(query, pageNumber) {
-  // let page;
   return await axios
     .get(API_URL, {
       params: {

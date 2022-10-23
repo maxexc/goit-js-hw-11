@@ -17,16 +17,22 @@ const options = {
 };
 const observer = new IntersectionObserver(onLoad, options);
 
-// --------- data for infinity scroll ---------- //
+//
 
-const gallery = document.querySelector('.js-gallery-hbs');
-const searchForm = document.querySelector('#search-form');
+const refs = {
+  gallery: document.querySelector('.js-gallery-hbs'),
+  searchForm: document.querySelector('#search-form'),
+  hideGif: document.querySelector('.dancing-gif'),
+};
+// console.log(refs.hideGif);
+refs.searchForm.addEventListener('submit', onSearchForm);
 
-searchForm.addEventListener('submit', onSearchForm);
+// ------- SimpleLightbox ------- //
 const gallerySimpleLightbox = new SimpleLightbox('.gallery a', {
   captionsData: 'alt',
   captionDelay: 250,
 });
+
 let query;
 let pageNumber = 1;
 let totalPage;
@@ -36,7 +42,7 @@ function onSearchForm(event) {
   window.scrollTo({ top: 0 });
   query = event.currentTarget.searchQuery.value.trim();
   // console.log(query);
-  gallery.innerHTML = '';
+  refs.gallery.innerHTML = '';
   observer.unobserve(guard);
   pageNumber = 1;
 
@@ -53,7 +59,7 @@ function onSearchForm(event) {
       // console.log(data.totalHits);
       // console.log(data.hits);
       if (data.totalHits !== 0) {
-        gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
+        refs.gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
         observer.observe(guard);
       }
       if (pageNumber === totalPage) {
@@ -66,7 +72,7 @@ function onSearchForm(event) {
     })
     .catch(error => console.log(error))
     .finally(() => {
-      searchForm.reset();
+      refs.searchForm.reset();
     });
 }
 
@@ -82,23 +88,23 @@ function onLoad(entries) {
         console.log('pageNumber:', pageNumber);
         if (pageNumber === totalPage) {
           console.log(pageNumber, totalPage);
-          gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
+          refs.gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
 
           Notiflix.Notify.warning(
             "We're sorry, but you've reached the end of search results."
           );
           observer.unobserve(guard);
         } else {
-          gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
+          refs.gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
           observer.observe(guard);
-          gallerySimpleLightbox.refresh();
+          refs.gallerySimpleLightbox.refresh();
         }
       });
     }
   });
 }
 
-// --------- infinity scroll ---------- //
+// --------- SmoothScroll ---------- //
 
 SmoothScroll({
   stepSize: 175,
@@ -113,13 +119,11 @@ SmoothScroll({
 
 // -------- dancing Gif --------- //
 
-searchForm.insertAdjacentHTML('beforeend', dancingGif());
-const hideGif = document.querySelector('.dancing-gif');
-// console.log(hideGif);
+refs.searchForm.insertAdjacentHTML('beforeend', dancingGif());
 
-hideGif.addEventListener('click', removeGif);
+refs.hideGif.addEventListener('click', removeGif);
 function removeGif() {
   console.log('это клик');
-  hideGif.classList.add('dancing-gif__opacity');
-  setTimeout(() => hideGif.classList.add('hidden'), 1000);
+  refs.hideGif.classList.add('dancing-gif__opacity');
+  setTimeout(() => refs.hideGif.classList.add('hidden'), 1000);
 }
