@@ -4,6 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 import { axiosImg } from './js/axiosImgData.js';
 import dancingGif from './templates/dancingGif.hbs';
 import Notiflix from 'notiflix';
+import SmoothScroll from 'smoothscroll-for-websites';
 
 console.log(axiosImg());
 
@@ -40,7 +41,7 @@ function onSearchForm(event) {
   pageNumber = 1;
 
   if (query === '') {
-    // emptySearch();
+    Notiflix.Notify.warning('The search field is empty. Please try again.');
     return;
   }
 
@@ -51,9 +52,7 @@ function onSearchForm(event) {
       console.log('totalPage:', totalPage);
       // console.log(data.totalHits);
       // console.log(data.hits);
-      if (data.totalHits === 0) {
-        noImagesFound();
-      } else {
+      if (data.totalHits !== 0) {
         gallery.insertAdjacentHTML('beforeend', pictureCard(data.hits));
         observer.observe(guard);
       }
@@ -101,5 +100,26 @@ function onLoad(entries) {
 
 // --------- infinity scroll ---------- //
 
+SmoothScroll({
+  stepSize: 175,
+  animationTime: 800,
+  accelerationDelta: 200,
+  accelerationMax: 6,
+  keyboardSupport: true,
+  arrowScroll: 100,
+});
+
 // console.log(query);
+
+// -------- dancing Gif --------- //
+
 searchForm.insertAdjacentHTML('beforeend', dancingGif());
+const hideGif = document.querySelector('.dancing-gif');
+// console.log(hideGif);
+
+hideGif.addEventListener('click', removeGif);
+function removeGif() {
+  console.log('это клик');
+  hideGif.classList.add('dancing-gif__opacity');
+  setTimeout(() => hideGif.classList.add('hidden'), 1000);
+}

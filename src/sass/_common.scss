@@ -6,10 +6,40 @@
 
 body {
   margin: 20px;
+  margin-top: 0;
   background-image: url('../images/k-71.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background-size: 2160px, cover;
+  // background-size: cover;
+  background-attachment: inherit;
+
+  // background-repeat: no-repeat;
 }
 a {
   color: currentColor;
+}
+
+.dancing-gif {
+  display: block;
+  margin: 0;
+  padding-left: 20px;
+  opacity: 1;
+
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.dancing-gif__opacity {
+  transform: opacity;
+  opacity: 0;
+}
+
+.hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
+  padding: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
 }
