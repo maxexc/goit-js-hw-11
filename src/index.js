@@ -96,12 +96,14 @@ function onLoad(entries) {
             Notiflix.Notify.warning(
               "We're sorry, but you've reached the end of search results."
             );
+            gallerySimpleLightbox.refresh();
             observer.unobserve(guard);
           } else {
             refs.gallery.insertAdjacentHTML(
               'beforeend',
               pictureCard(data.hits)
             );
+            gallerySimpleLightbox.refresh();
             observer.observe(guard);
             gallerySimpleLightbox.refresh();
           }
