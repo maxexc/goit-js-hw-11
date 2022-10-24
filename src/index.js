@@ -81,9 +81,9 @@ function onLoad(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       console.log('hello');
+      pageNumber += 1;
       axiosImg(query, pageNumber)
         .then(data => {
-          pageNumber += 1;
           totalPage = Math.ceil(data.totalHits / data.hits.length);
           console.log('pageNumber:', pageNumber);
           if (pageNumber === totalPage) {
@@ -92,7 +92,6 @@ function onLoad(entries) {
               'beforeend',
               pictureCard(data.hits)
             );
-
             Notiflix.Notify.warning(
               "We're sorry, but you've reached the end of search results."
             );
@@ -103,7 +102,6 @@ function onLoad(entries) {
               'beforeend',
               pictureCard(data.hits)
             );
-            gallerySimpleLightbox.refresh();
             observer.observe(guard);
             gallerySimpleLightbox.refresh();
           }
