@@ -12,7 +12,7 @@ console.log(axiosImg());
 const guard = document.querySelector('.guard');
 const options = {
   root: null,
-  rootMargin: '700px',
+  rootMargin: '1200px',
   threshold: 1,
 };
 const observer = new IntersectionObserver(onLoad, options);
