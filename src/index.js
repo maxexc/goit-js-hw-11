@@ -5,6 +5,7 @@ import { axiosImg } from './js/axiosImgData.js';
 import dancingGif from './templates/dancingGif.hbs';
 import Notiflix from 'notiflix';
 import SmoothScroll from 'smoothscroll-for-websites';
+import imageURL from './images/tanets-animatsionnaya-kartinka-0472.gif';
 
 console.log(axiosImg());
 
@@ -135,3 +136,5 @@ function removeGif() {
   refs.hideGif.classList.add('dancing-gif__opacity');
   setTimeout(() => refs.hideGif.classList.add('hidden'), 1000);
 }
+
+document.getElementById("danceGirl").src = imageURL;
